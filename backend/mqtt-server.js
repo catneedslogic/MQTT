@@ -23,7 +23,7 @@ wss.on('connection', (ws) => {
 // AWS IoT Events
 device.on('connect', () => {
   console.log('✅ Connected to AWS IoT');
-  device.subscribe('your/topic'); // Replace with your topic
+  device.subscribe('car/status');
 });
 
 device.on('message', (topic, payload) => {
