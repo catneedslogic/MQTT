@@ -1,0 +1,12 @@
+{
+  "name": "mqtt-backend",
+  "version": "1.0.0",
+  "main": "mqtt-server.js",
+  "scripts": {
+    "start": "node mqtt-server.js"
+  },
+  "dependencies": {
+    "aws-iot-device-sdk": "^2.2.8",
+    "ws": "^8.13.0"
+  }
+}
