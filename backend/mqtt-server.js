@@ -2,35 +2,40 @@ const awsIot = require('aws-iot-device-sdk');
 const WebSocket = require('ws');
 const http = require('http');
 
-// Read certs directly from environment variables
+// ===== COPY-PASTE READY CONFIG =====
 const device = awsIot.device({
-  privateKey: process.env.AWS_IOT_KEY,    // Direct PEM string
-  clientCert: process.env.AWS_IOT_CERT,   // Direct PEM string
-  caCert: process.env.AWS_IOT_CA,         // Direct PEM string
-  clientId: 'mqtt-client-' + Math.random().toString(36).substring(2, 8),
-  host: process.env.AWS_IOT_HOST
+  privateKey: Buffer.from(process.env.AWS_IOT_KEY.trim()),
+  clientCert: Buffer.from(process.env.AWS_IOT_CERT.trim()),
+  caCert: Buffer.from(process.env.AWS_IOT_CA.trim()),
+  clientId: 'render-client-' + Math.random().toString(36).substring(2, 8),
+  host: process.env.AWS_IOT_HOST.trim()
 });
 
-// Rest of your code (WebSocket setup, etc.)
-let clients = [];
+// WebSocket Server
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
   console.log("WebSocket client connected");
-  clients.push(ws);
+  ws.on('close', () => console.log("Client disconnected"));
 });
 
+// AWS IoT Events
 device.on('connect', () => {
-  console.log('Connected to AWS IoT');
-  device.subscribe('your/topic');
+  console.log('✅ Connected to AWS IoT');
+  device.subscribe('your/topic'); // Replace with your topic
 });
 
 device.on('message', (topic, payload) => {
   const msg = payload.toString();
-  clients.forEach(ws => ws.readyState === WebSocket.OPEN && ws.send(msg));
+  console.log(`📩 ${topic}: ${msg}`);
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) client.send(msg);
+  });
 });
 
-server.listen(process.env.PORT || 8080, () => {
-  console.log(`Server running on port ${process.env.PORT || 8080}`);
+// Start server
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+  console.log(`🚀 WebSocket server running on port ${PORT}`);
 });

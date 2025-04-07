@@ -1,5 +1,5 @@
 // Change this to your Render backend WebSocket URL
-const socket = new WebSocket('wss://your-backend-name.onrender.com');
+const socket = new WebSocket('wss://mqtt-backend.onrender.com');
 
 socket.onmessage = (event) => {
   document.getElementById('data').innerText = event.data;
