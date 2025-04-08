@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Live AWS IoT Data</title>
+  <title>Car Parking Status</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>MQTT Dashboard</h1>
-  <p id="data">Waiting for data...</p>
+  <h1>Car Parking Status</h1>
+  
+  <div class="status-container">
+    <div id="light" class="light"></div>
+    <div id="status-text">Waiting for data...</div>
+    <div id="timestamp" class="timestamp"></div>
+  </div>
+
   <script src="mqttClient.js"></script>
 </body>
 </html>
