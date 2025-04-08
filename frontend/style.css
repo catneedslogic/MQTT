@@ -21,9 +21,9 @@ body {
   }
   
   /* Status Colors */
-  .light.empty { background-color: #4CAF50; } /* Green */
-  .light.parking { background-color: #FFC107; } /* Yellow */
-  .light.parked { background-color: #F44336; } /* Red */
+  #light.parked { background-color: #F44336 !important; }
+  #light.empty { background-color: #4CAF50 !important; }
+  #light.parking { background-color: #FFC107 !important; }
   
   .status-text {
     font-size: 24px;
