@@ -1,73 +1,83 @@
-/* styles.css */
-/* RESET (Critical fix) */
+/* General Stuff */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* BASE STYLES */
+/* Stuff inside body */
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: white;
+  background-color: lightyellow;
 }
 
-/* LIGHT CIRCLES - MUST COME FIRST */
+/* Structure of the circles */
 .light {
-  /* Structural styles */
+  /* Size structure */
   width: 100px;
   height: 100px;
   border-radius: 50%;
   margin: 15px auto;
-  border: 2px solid #333;
-  background-color: #eee;
+
+  /* Color */
+  border: 2px solid black;
+  background-color: lightgray;
   
-  /* Rendering guarantees */
-  display: block !important;
-  position: relative;
-  box-sizing: border-box;
-  
-  /* Visual feedback */
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  /* Transition between colors */
   transition: all 0.3s ease;
+
+  /* Some animation*/
+  animation: pulse 0.5s ease;
 }
 
-/* STATUS COLORS */
+/* Some animation for the circles on load in*/
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Transition colors */
 .light.empty { background-color: #4CAF50 !important; }
 .light.parking { background-color: #FFC107 !important; }
 .light.parked { background-color: #F44336 !important; }
 
-/* PARKING SPOT CONTAINERS */
+/* Different parking spot containers */
 .parking-spot {
+  /* Color of container and shadow */
   background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+  /* Spacing */
   padding: 20px;
   margin-bottom: 30px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  position: relative; /* Creates stacking context */
-  overflow: visible; /* Ensures circles aren't clipped */
 }
 
-/* TEXT ELEMENTS */
+/* Status text */
 .status-text, #fake-status-1, #fake-status-2 {
   font-size: 1.2rem;
   margin: 10px 0;
 }
 
+/* Timestamp text */
 .timestamp {
-  color: #666;
+  color: grey;
   font-size: 0.9rem;
 }
 
-/* BUTTONS */
+/* Change status buttons */
 button {
-  margin-top: 15px;
-  padding: 8px 20px;
+  /* Color's of button */
   background: #4CAF50;
   color: white;
+
+  /* Spacing */
+  margin-top: 15px;
+  padding: 8px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;

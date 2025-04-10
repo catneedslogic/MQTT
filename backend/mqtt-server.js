@@ -2,8 +2,9 @@ const awsIot = require('aws-iot-device-sdk');
 const WebSocket = require('ws');
 const http = require('http');
 
-// ===== COPY-PASTE READY CONFIG =====
+// Certification to connect to device, and endpoints
 const device = awsIot.device({
+  // Hidden names with real certification on render
   privateKey: Buffer.from(process.env.AWS_IOT_KEY.trim()),
   clientCert: Buffer.from(process.env.AWS_IOT_CERT.trim()),
   caCert: Buffer.from(process.env.AWS_IOT_CA.trim()),
@@ -15,23 +16,30 @@ const device = awsIot.device({
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 
+// On and off socket connection to front end
 wss.on('connection', (ws) => {
-  console.log("WebSocket client connected");
-  ws.on('close', () => console.log("Client disconnected"));
+  console.log("✅ WebSocket client connected");
+  ws.on('close', () => console.log("❌ Client disconnected"));
 });
 
-// AWS IoT Events
+// On connection to AWS
 device.on('connect', () => {
   console.log('✅ Connected to AWS IoT');
   device.subscribe('car/status');
 });
 
+// If message from AWS
 device.on('message', (topic, payload) => {
   const msg = payload.toString();
   console.log(`📩 ${topic}: ${msg}`);
   wss.clients.forEach(client => {
     if (client.readyState === WebSocket.OPEN) client.send(msg);
   });
+});
+
+// If error from AWS
+device.on('error', (error) => {
+  console.error('⚠️ AWS IoT Error:', error);
 });
 
 // Start server
