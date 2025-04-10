@@ -2,17 +2,37 @@
 <html>
 <head>
   <title>Car Parking Status</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>Car Parking Status</h1>
   
-  <div class="status-container">
+  <!-- Real Spot (Connected to MQTT) -->
+  <div class="parking-spot">
+    <h2>Main Spot (Real Data)</h2>
     <div id="light" class="light"></div>
     <div id="status-text">Waiting for data...</div>
     <div id="timestamp" class="timestamp"></div>
   </div>
 
+  <!-- Fake Spots -->
+  <div class="parking-spot">
+    <h2>Spot 2 (Fake Data)</h2>
+    <div id="fake-light-1" class="light"></div>
+    <div id="fake-status-1">Generating data...</div>
+    <div class="timestamp" id="fake-time-1"></div>
+    <button onclick="updateFakeSpot(1)">Change Status</button>
+  </div>
+
+  <div class="parking-spot">
+    <h2>Spot 3 (Fake Data)</h2>
+    <div id="fake-light-2" class="light"></div>
+    <div id="fake-status-2">Generating data...</div>
+    <div class="timestamp" id="fake-time-2"></div>
+    <button onclick="updateFakeSpot(2)">Change Status</button>
+  </div>
+
   <script src="mqttClient.js"></script>
+  <script src="fakeData.js"></script>
 </body>
 </html>
