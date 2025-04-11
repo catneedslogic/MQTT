@@ -2,8 +2,13 @@
 const statuses = ['empty', 'parking', 'parked'];
 
 function updateFakeSpot(spotNumber) {
-  const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+  let randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
   const now = new Date();
+
+  // If random is the same as current, switch it
+  while (`light ${randomStatus}` == document.getElementById(`fake-light-${spotNumber}`).className) {
+    randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+  }
   
   // Update circle color, text, and time
   document.getElementById(`fake-light-${spotNumber}`).className = `light ${randomStatus}`;
@@ -13,15 +18,16 @@ function updateFakeSpot(spotNumber) {
     'Last updated: ' + now.toLocaleTimeString();
 }
 
-// Auto-cycle between 5 and 10 seconds
-setInterval(() => {
-  updateFakeSpot(1);
-}, Math.floor(5000 * (Math.random() + 1)));
+// Cycle between 5 and 10 seconds
+function cycle(fakeSpotNumber) {
+  setInterval(() => {
+    updateFakeSpot(fakeSpotNumber);
+  }, Math.floor(5000 * (Math.random() + 1)));
+}
 
 // Put them on seperate timers
-setInterval(() => {
-  updateFakeSpot(2);
-}, Math.floor(5000 * (Math.random() + 1)));
+cycle(1);
+cycle(2);
 
 // Initialize
 updateFakeSpot(1);
