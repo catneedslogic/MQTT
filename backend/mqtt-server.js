@@ -19,7 +19,7 @@ const wss = new WebSocket.Server({ server });
 // On and off socket connection to front end
 wss.on('connection', (ws) => {
   console.log("✅ WebSocket client connected");
-  ws.on('close', () => console.log("❌ Client disconnected"));
+  ws.on('close', () => console.log("❌ WebSocket client disconnected"));
 });
 
 // On connection to AWS
