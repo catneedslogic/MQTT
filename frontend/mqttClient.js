@@ -15,9 +15,8 @@ socket.onmessage = (event) => {
     let time;
     if (data.timestamp == "lwt") {
       time = new Date(data.timestamp).toLocaleTimeString();
-    } else
-    {
-      time = now.toLocaleTimeString();
+    } else {
+      time = new Date().toLocaleTimeString();
     }
     
     // Update the display
