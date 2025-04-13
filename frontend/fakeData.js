@@ -1,5 +1,5 @@
 // Fake status generator
-const statuses = ['empty', 'parking', 'parked'];
+const statuses = ['empty', 'parking', 'parked', 'off'];
 
 function updateFakeSpot(spotNumber) {
   let randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
