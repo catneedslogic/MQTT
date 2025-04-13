@@ -12,7 +12,13 @@ socket.onmessage = (event) => {
     // Parse data into what we want to display
     const data = JSON.parse(event.data);
     const status = data.status.toLowerCase();
-    const time = new Date(data.timestamp).toLocaleTimeString();
+    let time;
+    if (data.timestamp == "lwt") {
+      time = new Date(data.timestamp).toLocaleTimeString();
+    } else
+    {
+      time = now.toLocaleTimeString();
+    }
     
     // Update the display
     light.className = 'light ' + status;
