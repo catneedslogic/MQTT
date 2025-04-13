@@ -44,6 +44,7 @@ body {
 .light.empty { background-color: #4CAF50 !important; }
 .light.parking { background-color: #FFC107 !important; }
 .light.parked { background-color: #F44336 !important; }
+.light.off { background-color: black !important; }
 
 /* Different parking spot containers */
 .parking-spot {
